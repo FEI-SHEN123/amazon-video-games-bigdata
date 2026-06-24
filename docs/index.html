@@ -216,7 +216,7 @@
   <header>
     <div class="header-inner">
       <h1>Amazon Video Games Review Analysis Dashboard</h1>
-      <p class="team">Group XX / Team Members: Name 1, Name 2, Name 3</p>
+      <p class="team">Group 19 / Team Members: 黄梓纹 陈郅</p>
       <nav aria-label="Dashboard sections">
         <a href="#overview">Dataset Overview</a>
         <a href="#pipeline">Big Data Pipeline</a>
@@ -388,6 +388,28 @@
             <p>Comparing this cloud with the high-rating cloud gives a quick view of what separates satisfied and dissatisfied reviewers.</p>
           </figcaption>
         </figure>
+      </div>
+    </section>
+
+    <section id="conclusion">
+      <h2>Conclusion and Reflection</h2>
+      <div class="note">
+        <p>
+          This project shows that Amazon Video Games reviews can be transformed
+          from large compressed JSON files into structured analytical outputs
+          through a complete big data workflow. HDFS provides persistent storage
+          for raw and cleaned data, PySpark handles parsing and transformation,
+          Spark SQL supports repeatable aggregate analysis, and Python
+          visualization libraries make the results easier to communicate.
+        </p>
+        <p>
+          The analysis suggests that review behavior is strongly positive overall,
+          but important differences appear when reviews are grouped by verified
+          purchase status, review length, user activity level, price bucket, and
+          brand. The additional helpful-review prediction task also shows that
+          simple structured features can provide useful signals, while leaving
+          room for deeper text-based modeling in future work.
+        </p>
       </div>
     </section>
 
