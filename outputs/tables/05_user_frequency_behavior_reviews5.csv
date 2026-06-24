@@ -1,0 +1,3 @@
+user_group,user_count,review_count,avg_reviews_per_user,avg_rating,rating_stddev,avg_helpful_votes,avg_review_length,positive_review_pct
+high_frequency_user,12001,216027,37.55,4.219,1.157,3.012,865.5,78.98
+ordinary_user,43222,257797,6.3,4.232,1.203,1.633,489.8,79.40

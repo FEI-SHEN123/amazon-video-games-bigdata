@@ -1,0 +1,16 @@
+metric,value
+model,logistic_regression
+label_definition,is_helpful = 1 if helpful_votes > 0 else 0
+price_fill_strategy,median_meta_price
+price_fill_value,16.990000
+train_rows,1991970
+test_rows,498123
+evaluated_rows,498123
+area_under_roc,0.826841
+area_under_pr,0.521746
+accuracy,0.851035
+test_positive_label_rate,0.170354
+test_positive_prediction_rate,0.075102
+max_iter,20
+reg_param,0.010000
+elastic_net_param,0.000000

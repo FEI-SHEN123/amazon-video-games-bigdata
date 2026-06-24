@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Amazon Video Games Review Analysis Dashboard</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #1f2933;
+      --muted: #5f6b7a;
+      --line: #d9dee7;
+      --accent: #2f6f73;
+      --accent-dark: #214f52;
+      --warm: #a15c38;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    header {
+      background: #263238;
+      color: #fff;
+      padding: 34px 24px 28px;
+      border-bottom: 5px solid var(--accent);
+    }
+
+    .header-inner,
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .team {
+      margin: 0;
+      color: #d6dee5;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    nav {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 14px;
+    }
+
+    section {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 24px;
+      line-height: 1.25;
+      color: var(--accent-dark);
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .stat,
+    .note {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--accent-dark);
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .stage {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 112px;
+    }
+
+    .stage span {
+      display: block;
+      color: var(--warm);
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .findings {
+      columns: 2;
+      column-gap: 28px;
+      padding-left: 20px;
+    }
+
+    .findings li {
+      break-inside: avoid;
+      margin-bottom: 10px;
+    }
+
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    figure {
+      margin: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+    }
+
+    figcaption {
+      padding: 15px 16px 18px;
+    }
+
+    figcaption p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .limitations {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    footer {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 22px 0 36px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .overview-grid,
+      .pipeline,
+      .figure-grid,
+      .limitations {
+        grid-template-columns: 1fr;
+      }
+
+      .findings {
+        columns: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1>Amazon Video Games Review Analysis Dashboard</h1>
+      <p class="team">Group XX / Team Members: Name 1, Name 2, Name 3</p>
+      <nav aria-label="Dashboard sections">
+        <a href="#overview">Dataset Overview</a>
+        <a href="#pipeline">Big Data Pipeline</a>
+        <a href="#findings">Key Findings</a>
+        <a href="#figures">Figures</a>
+        <a href="#limitations">Limitations</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="overview">
+      <h2>Dataset Overview</h2>
+      <p>
+        This project studies Amazon Video Games reviews and product metadata.
+        The workflow uses raw JSON data in HDFS, cleaned Parquet tables, Spark
+        SQL analysis outputs, and static visualizations for reporting.
+      </p>
+      <div class="overview-grid">
+        <div class="stat">
+          <strong>Reviews</strong>
+          Full review data provides ratings, verified purchase status, helpful
+          votes, review text, and review timestamps.
+        </div>
+        <div class="stat">
+          <strong>5-Core Reviews</strong>
+          The 5-core subset supports user behavior analysis for reviewers with
+          denser activity histories.
+        </div>
+        <div class="stat">
+          <strong>Metadata</strong>
+          Product metadata adds brand and price information through the shared
+          product identifier, `asin`.
+        </div>
+      </div>
+    </section>
+
+    <section id="pipeline">
+      <h2>Big Data Pipeline: HDFS -> PySpark Cleaning -> Parquet -> Spark SQL -> Visualization</h2>
+      <div class="pipeline">
+        <div class="stage">
+          <span>Step 1</span>
+          HDFS stores compressed raw review and metadata JSON files.
+        </div>
+        <div class="stage">
+          <span>Step 2</span>
+          PySpark cleans fields, parses dates, normalizes votes, and extracts
+          review length and price.
+        </div>
+        <div class="stage">
+          <span>Step 3</span>
+          Clean tables are written as Parquet for efficient repeated analysis.
+        </div>
+        <div class="stage">
+          <span>Step 4</span>
+          Spark SQL produces aggregate tables for trends, behavior, brands,
+          prices, and keywords.
+        </div>
+        <div class="stage">
+          <span>Step 5</span>
+          Python visualization scripts convert the CSV outputs into PNG figures
+          for interpretation.
+        </div>
+      </div>
+    </section>
+
+    <section id="findings">
+      <h2>Key Findings</h2>
+      <ul class="findings">
+        <li>Review activity changes substantially over time, showing that the category has clear temporal dynamics.</li>
+        <li>Ratings are concentrated toward positive scores, which is common in consumer review datasets.</li>
+        <li>Verified and non-verified purchases show different average rating and review behavior patterns.</li>
+        <li>Helpful votes are associated with both rating level and review length, suggesting that detail matters.</li>
+        <li>High-frequency users behave differently from ordinary users in rating tendency and positive review share.</li>
+        <li>Price buckets and brands reveal product-level structure that is not visible from review text alone.</li>
+        <li>Keyword analysis separates positive experience terms from low-rating complaint terms.</li>
+      </ul>
+    </section>
+
+    <section id="figures">
+      <h2>Visualization Gallery</h2>
+      <div class="figure-grid">
+        <figure>
+          <img src="figures/01_yearly_review_count_trend.png" alt="Yearly review count trend line chart">
+          <figcaption>
+            <h3>Yearly Review Count Trend</h3>
+            <p>The yearly trend shows how review volume changes across time. This helps identify growth periods, slowdowns, or unusual spikes in customer activity.</p>
+            <p>The average rating line in the source table can be compared with this volume trend to see whether popularity and satisfaction move together.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="figures/02_rating_distribution.png" alt="Rating distribution bar chart">
+          <figcaption>
+            <h3>Rating Distribution</h3>
+            <p>The distribution summarizes how many reviews fall into each score from 1 to 5. A strong concentration in high ratings suggests generally positive reviewer sentiment.</p>
+            <p>This chart is a baseline for interpreting later analyses, because user groups, brands, and price buckets should be compared against the overall rating pattern.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="figures/03_verified_purchase_avg_rating.png" alt="Average rating by verified purchase status">
+          <figcaption>
+            <h3>Verified Purchase Rating Difference</h3>
+            <p>This chart compares average ratings from verified and non-verified purchase reviews. The gap helps evaluate whether verified buyers express different satisfaction levels.</p>
+            <p>Verified purchase status also provides a useful signal for trust and review behavior in downstream interpretation.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="figures/04_helpful_votes_by_rating_and_length.png" alt="Helpful votes heatmap by rating and review length">
+          <figcaption>
+            <h3>Helpful Votes by Rating and Review Length</h3>
+            <p>The heatmap shows average helpful votes across rating and review length buckets. Longer reviews often provide more detail, which can make them more useful to readers.</p>
+            <p>Comparing rows also reveals whether extreme positive or negative reviews attract more helpful feedback than middle ratings.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="figures/05_user_frequency_rating_behavior.png" alt="High-frequency versus ordinary user behavior">
+          <figcaption>
+            <h3>High-Frequency vs Ordinary User Behavior</h3>
+            <p>This figure compares average rating and positive review share between high-frequency and ordinary users. It highlights whether active reviewers rate products differently from the broader reviewer base.</p>
+            <p>The 5-core dataset is useful here because it focuses on users and products with stronger review histories.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="figures/06_price_bucket_reviews_and_rating.png" alt="Review volume and average rating by price bucket">
+          <figcaption>
+            <h3>Price Bucket Reviews and Rating</h3>
+            <p>This chart links product price ranges to review volume and average rating. It helps show whether lower-priced or higher-priced products dominate customer discussion.</p>
+            <p>The combined bar and line view makes it easier to compare popularity and satisfaction within the same price segmentation.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="figures/07_top_brands_by_review_count.png" alt="Top brands by review count">
+          <figcaption>
+            <h3>Top Brands by Review Count</h3>
+            <p>The brand ranking identifies products with the largest review presence after joining reviews with metadata. Review count captures attention, while average rating adds a quality signal.</p>
+            <p>This view is useful for discussing market concentration and comparing leading brands in the Video Games category.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="figures/08_high_low_rating_top_keywords.png" alt="Top keywords in high-rating and low-rating reviews">
+          <figcaption>
+            <h3>High and Low Rating Top Keywords</h3>
+            <p>This chart compares the most frequent keywords in positive and negative review groups. It separates words associated with enjoyment and product strengths from words connected to complaints.</p>
+            <p>The enhanced stopword filtering keeps more meaningful game-related terms such as graphics, controller, mouse, fun, money, quality, broken, and recommend.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="figures/08_high_rating_keyword_wordcloud.png" alt="Word cloud for high-rating reviews">
+          <figcaption>
+            <h3>High-Rating Keyword Word Cloud</h3>
+            <p>The high-rating word cloud emphasizes terms that appear frequently in positive reviews. Larger words point to features and experiences that satisfied customers mention often.</p>
+            <p>This view complements the ranked keyword chart by making positive review themes easier to scan visually.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="figures/08_low_rating_keyword_wordcloud.png" alt="Word cloud for low-rating reviews">
+          <figcaption>
+            <h3>Low-Rating Keyword Word Cloud</h3>
+            <p>The low-rating word cloud highlights terms that appear frequently in negative reviews. These words help identify recurring pain points such as broken products, wasted money, or quality problems.</p>
+            <p>Comparing this cloud with the high-rating cloud gives a quick view of what separates satisfied and dissatisfied reviewers.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="limitations">
+      <h2>Limitations</h2>
+      <div class="limitations">
+        <div class="note">
+          Review data can contain selection bias because only customers who
+          choose to write reviews are represented.
+        </div>
+        <div class="note">
+          Helpful votes measure reader reactions, but they are not a perfect
+          ground truth for review quality.
+        </div>
+        <div class="note">
+          Metadata fields such as price and brand may be missing, inconsistent,
+          or time-dependent.
+        </div>
+        <div class="note">
+          Keyword analysis uses simple token counts, so it does not capture
+          negation, sarcasm, or deeper sentence meaning.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Static dashboard generated from the Amazon Video Games Review Analysis project outputs.
+  </footer>
+</body>
+</html>

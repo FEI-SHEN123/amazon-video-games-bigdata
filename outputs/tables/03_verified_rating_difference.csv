@@ -1,0 +1,3 @@
+purchase_type,review_count,avg_rating,rating_stddev,avg_helpful_votes,avg_review_length
+verified_purchase,1902309,4.103,1.371,0.674,248.4
+non_verified_purchase,587784,3.77,1.485,3.779,869.1
